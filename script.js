@@ -185,6 +185,7 @@ function showToast(message) {
 }
 
 function saveCurrentPage() {
+  pages[currentPage].title = title.value.trimStart();
   pages[currentPage].phone = phone.value;
   pages[currentPage].prefix = prefix.value;
   pages[currentPage].text = noteText.value;
@@ -193,7 +194,7 @@ function saveCurrentPage() {
 
 function renderPage() {
   const page = pages[currentPage];
-  title.textContent = page.title;
+  title.value = page.title;
   pageNumber.textContent = String(currentPage + 1).padStart(2, '0');
   pageCounter.textContent = `folha ${String(currentPage + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
   prefix.value = page.prefix;
@@ -222,7 +223,7 @@ function animatePaper() {
 
 function renderPagesMenu() {
   const escapeText = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
-  pagesList.innerHTML = pages.map((page, index) => `<div class="page-menu-item ${index === currentPage ? 'selected' : ''}" style="--item-index:${Math.min(index, 10)}"><button class="page-menu-open" type="button" data-menu-page="${index}"><span class="menu-page-number">${String(index + 1).padStart(2, '0')}</span><span class="menu-page-copy"><strong>${escapeText(page.title)}</strong><small>${escapeText(page.text ? page.text.slice(0, 42) : 'folha em branco')}</small></span></button><button class="delete-page" type="button" data-delete-page="${index}" aria-label="Excluir folha ${index + 1}">⌫</button></div>`).join('');
+  pagesList.innerHTML = pages.map((page, index) => `<div class="page-menu-item ${index === currentPage ? 'selected' : ''}" style="--item-index:${Math.min(index, 10)}"><button class="page-menu-open" type="button" data-menu-page="${index}"><span class="menu-page-number">${String(index + 1).padStart(2, '0')}</span><span class="menu-page-copy"><strong>${escapeText(page.title || 'Folha sem título')}</strong><small>${escapeText(page.text ? page.text.slice(0, 42) : 'folha em branco')}</small></span></button><button class="delete-page" type="button" data-delete-page="${index}" aria-label="Excluir folha ${index + 1}">⌫</button></div>`).join('');
 }
 
 function setMenu(open) {
@@ -292,7 +293,6 @@ function openNotebook() {
   coverView.classList.remove('is-visible');
   notebookView.classList.add('is-visible');
   renderPage();
-  title.tabIndex = -1;
   title.focus({ preventScroll: true });
 }
 
@@ -363,6 +363,10 @@ phone.addEventListener('input', () => {
 noteText.addEventListener('input', () => {
   clearValidation();
   saveCurrentPage();
+});
+title.addEventListener('input', () => {
+  saveCurrentPage();
+  renderPagesMenu();
 });
 prefix.addEventListener('input', () => {
   clearValidation();

@@ -18,7 +18,8 @@ Cada folha guarda um telefone e uma mensagem. Ao clicar em **Enviar recado**, o 
 
 ## O que ele faz
 
-- Guarda telefone, prefixo internacional e mensagem em folhas separadas.
+- Guarda título, telefone, prefixo internacional e mensagem em folhas separadas.
+- Permite renomear cada folha diretamente no caderno.
 - Abre propostas, lembretes e recados diretamente no WhatsApp.
 - Aplica máscara e validação aos telefones brasileiros.
 - Aceita números internacionais.

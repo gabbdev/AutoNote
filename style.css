@@ -36,8 +36,9 @@ body.dark-mode {
   --shadow: 0 18px 48px #07162440;
 }
 * { box-sizing: border-box; }
-html { min-width: 280px; }
+html { min-width: 280px; overflow-x: clip; }
 body { margin: 0; background: var(--sky); color: var(--ink); font: 600 15px/1.5 Nunito, sans-serif; }
+.app-shell { max-width: 100%; overflow-x: clip; }
 button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
@@ -196,6 +197,49 @@ body.menu-is-open { overflow: hidden; }
   .tree-left { left: 3%; }.tree-right { right: 3%; }
   .pages-menu { padding: 20px; }.menu-heading h3 { font-size: 23px; }
 }
+
+/* Movimento suave para deixar o caderno mais vivo. */
+body, .cover-view, .notebook-view, .paper, .pages-menu, .menu-button, .theme-button,
+.phone-wrap, .new-page, .page-menu-item, .paper-icon {
+  transition: color .3s ease, background-color .3s ease, border-color .3s ease, box-shadow .3s ease, transform .2s ease;
+}
+.cover-view.is-visible .cover-card { animation: cover-arrival .65s cubic-bezier(.2,.8,.2,1) both; }
+.cover-view.is-visible .leaf-badge { animation: leaf-pop .7s .3s cubic-bezier(.2,.9,.3,1.25) both; }
+.cover-view.is-visible .cover-card h1 { animation: title-arrival .65s .12s ease-out both; }
+.cover-cloud { animation: cloud-drift 8s ease-in-out infinite alternate; }
+.cloud-two { animation-duration: 11s; animation-delay: -3s; }
+.sun { animation: sun-float 5s ease-in-out infinite; }
+.tree b { transform-origin: 50% 100%; animation: tree-sway 4.8s ease-in-out infinite alternate; }
+.tree-right b { animation-delay: -2.2s; }
+.flower { transform-origin: 50% 100%; animation: flower-dance 2.8s ease-in-out infinite alternate; }
+.flower-b { animation-delay: -1.3s; }
+.primary-button:hover, .send-button:hover, .menu-new-page:hover { transform: translateY(-2px); }
+.primary-button:active, .send-button:active, .menu-new-page:active, .new-page:active,
+.menu-button:active, .theme-button:active { transform: translateY(2px) scale(.98); }
+.paper.page-enter { animation: paper-turn .38s cubic-bezier(.2,.8,.2,1) both; }
+.paper-icon { animation: icon-breathe 3.2s ease-in-out infinite; }
+.page-dot::after { transition: width .2s ease, height .2s ease, opacity .2s ease, transform .2s ease; }
+.page-dot.active::after { animation: dot-pop .28s ease-out; }
+.pages-menu.open .page-menu-item { animation: menu-item-arrival .32s ease-out both; animation-delay: calc(var(--item-index) * 28ms); }
+.page-menu-item:hover { transform: translateX(3px); }
+.page-menu-item.selected { box-shadow: inset 4px 0 0 var(--accent); }
+.toast.show { animation: toast-bounce .35s cubic-bezier(.2,.8,.2,1); }
+.dark-mode .notebook-view { animation: stars-glow 4s ease-in-out infinite alternate; }
+
+@keyframes cover-arrival { from { opacity: 0; transform: translateY(22px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes leaf-pop { from { opacity: 0; transform: rotate(-18deg) scale(.45); } to { opacity: 1; transform: rotate(0) scale(1); } }
+@keyframes title-arrival { from { opacity: 0; transform: translateY(12px); letter-spacing: -.1em; } to { opacity: 1; transform: none; } }
+@keyframes cloud-drift { from { translate: -10px 0; } to { translate: 14px 0; } }
+@keyframes sun-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes tree-sway { from { transform: rotate(-1.5deg); } to { transform: rotate(2deg); } }
+@keyframes flower-dance { from { transform: rotate(-6deg); } to { transform: rotate(7deg); } }
+@keyframes paper-turn { from { opacity: .35; transform: translateY(10px) scale(.995); } to { opacity: 1; transform: none; } }
+@keyframes icon-breathe { 0%,100% { transform: rotate(-4deg) scale(1); } 50% { transform: rotate(4deg) scale(1.06); } }
+@keyframes dot-pop { 0% { transform: scale(.5); } 70% { transform: scale(1.35); } 100% { transform: scale(1); } }
+@keyframes menu-item-arrival { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@keyframes toast-bounce { from { opacity: 0; transform: translate(-50%, 16px) scale(.94); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+@keyframes stars-glow { from { background-position: 15px 28px, 90px 60px; } to { background-position: 18px 31px, 86px 56px; } }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

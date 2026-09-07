@@ -209,11 +209,20 @@ function renderPage() {
     return `<button class="page-dot ${index === currentPage ? 'active' : ''}" type="button" aria-label="Ir para folha ${index + 1}" aria-current="${index === currentPage ? 'page' : 'false'}" data-page="${index}"></button>`;
   }).join('');
   renderPagesMenu();
+  animatePaper();
+}
+
+function animatePaper() {
+  const paper = document.querySelector('.paper');
+  if (!notebookView.classList.contains('is-visible')) return;
+  paper.classList.remove('page-enter');
+  void paper.offsetWidth;
+  paper.classList.add('page-enter');
 }
 
 function renderPagesMenu() {
   const escapeText = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[char]));
-  pagesList.innerHTML = pages.map((page, index) => `<div class="page-menu-item ${index === currentPage ? 'selected' : ''}"><button class="page-menu-open" type="button" data-menu-page="${index}"><span class="menu-page-number">${String(index + 1).padStart(2, '0')}</span><span class="menu-page-copy"><strong>${escapeText(page.title)}</strong><small>${escapeText(page.text ? page.text.slice(0, 42) : 'folha em branco')}</small></span></button><button class="delete-page" type="button" data-delete-page="${index}" aria-label="Excluir folha ${index + 1}">⌫</button></div>`).join('');
+  pagesList.innerHTML = pages.map((page, index) => `<div class="page-menu-item ${index === currentPage ? 'selected' : ''}" style="--item-index:${Math.min(index, 10)}"><button class="page-menu-open" type="button" data-menu-page="${index}"><span class="menu-page-number">${String(index + 1).padStart(2, '0')}</span><span class="menu-page-copy"><strong>${escapeText(page.title)}</strong><small>${escapeText(page.text ? page.text.slice(0, 42) : 'folha em branco')}</small></span></button><button class="delete-page" type="button" data-delete-page="${index}" aria-label="Excluir folha ${index + 1}">⌫</button></div>`).join('');
 }
 
 function setMenu(open) {

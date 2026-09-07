@@ -1,67 +1,81 @@
 # AutoNote
 
-Um caderno digital leve para escrever mensagens, organizar destinatários em folhas e abrir o envio diretamente no WhatsApp. A interface foi inspirada no clima acolhedor de jogos como Animal Crossing, com cores suaves, modo dia e modo noite.
+O AutoNote organiza mensagens que você envia com frequência pelo WhatsApp. Ele serve para pequenos negócios, freelancers e equipes prepararem propostas, follow-ups, lembretes e recadinhos sem reescrever tudo a cada contato.
 
-## Funcionalidades
+Cada folha guarda um telefone e uma mensagem. Ao clicar em **Enviar recado**, o AutoNote abre o WhatsApp com o conteúdo preenchido; o envio continua sob controle do usuário.
 
-- Criação de várias folhas independentes.
-- Telefone, prefixo internacional e mensagem salvos automaticamente.
-- Máscara para números brasileiros quando o prefixo é `+55`.
-- Validação de números nacionais e internacionais.
-- Abertura da mensagem pronta no WhatsApp.
-- Menu para visualizar, navegar e excluir folhas.
-- Opção de desfazer exclusões durante a sessão atual.
-- Modo dia e modo noite com preferência salva.
-- Layout responsivo para celular, tablet e desktop.
-- Navegação acessível por teclado.
+**Acesse:** [autonote-leaf.vercel.app](https://autonote-leaf.vercel.app/)
 
-## Como usar
+## Interface
 
-1. Abra o arquivo `index.html` em um navegador moderno.
-2. Clique em **Abrir meu caderno**.
-3. Digite o prefixo do país, o telefone com código de área e a mensagem.
-4. Clique em **Enviar recado** para abrir a conversa no WhatsApp.
+![Capa do AutoNote](assets/screenshots/capa.png)
 
-O AutoNote é uma aplicação estática feita com HTML, CSS e JavaScript puro. Não é necessário instalar dependências nem configurar um backend.
+![Editor de propostas no AutoNote](assets/screenshots/caderno-desktop.png)
 
-## Armazenamento e privacidade
+| Menu de folhas | Modo noite no celular |
+| --- | --- |
+| ![Menu para navegar e excluir folhas](assets/screenshots/menu-de-folhas.png) | ![Editor do AutoNote no celular em modo noite](assets/screenshots/caderno-mobile-noite.png) |
 
-As folhas são armazenadas no `localStorage` do navegador. Nenhum texto ou telefone é enviado para um servidor do AutoNote.
+## O que ele faz
 
-Isso significa que:
+- Guarda telefone, prefixo internacional e mensagem em folhas separadas.
+- Abre propostas, lembretes e recados diretamente no WhatsApp.
+- Aplica máscara e validação aos telefones brasileiros.
+- Aceita números internacionais.
+- Permite criar, navegar, excluir e restaurar folhas.
+- Mantém modo dia ou noite e funciona em celular e desktop.
 
-- as notas ficam vinculadas ao navegador e ao endereço onde o site foi aberto;
-- não existe sincronização entre dispositivos;
-- limpar os dados do site pode apagar as notas;
-- outras pessoas usando o mesmo perfil do navegador podem acessar o conteúdo salvo;
-- notas criadas localmente não migram automaticamente para uma versão hospedada em outro endereço.
+Os dados ficam no `localStorage` do navegador. Não há conta, banco de dados ou sincronização. Limpar os dados do site apaga as notas desse navegador.
 
-O botão de envio abre o WhatsApp com o telefone e a mensagem preenchidos. O usuário ainda confirma o envio dentro do próprio WhatsApp.
+## Stack
+
+- HTML5
+- CSS3
+- JavaScript puro
+- Web Storage API (`localStorage`)
+- API de links do WhatsApp (`wa.me`)
+- Vercel para hospedagem
+
+O projeto não usa framework, backend ou etapa de build.
+
+## Rodando localmente
+
+Clone ou baixe o repositório e abra o `index.html` no navegador. Para servir por HTTP, use qualquer servidor estático de sua preferência.
+
+```bash
+cd AutoNote
+npx serve .
+```
 
 ## Estrutura
 
 ```text
 AutoNote/
-├── index.html              # Estrutura da interface
-├── style.css               # Temas e layout responsivo
-├── script.js               # Folhas, armazenamento e integração com WhatsApp
-├── favicon.svg             # Ícone vetorial
-├── favicon-32.png          # Ícone para navegadores
-├── apple-touch-icon.png    # Ícone para atalhos em dispositivos Apple
+├── assets/screenshots/
+├── index.html
+├── style.css
+├── script.js
+├── favicon.svg
+├── favicon-32.png
+├── apple-touch-icon.png
 ├── LICENSE
 └── README.md
 ```
 
-## Publicação
+## Forks e uso
 
-Por ser um site estático, o projeto pode ser publicado diretamente no GitHub Pages, Vercel, Netlify ou em qualquer hospedagem de arquivos estáticos. Publique todos os arquivos da raiz e use `index.html` como página inicial.
+Forks, modificações e uso pessoal ou comercial são permitidos pela licença MIT. Ao redistribuir ou publicar uma versão derivada:
+
+- mantenha o aviso de copyright e uma cópia da licença MIT;
+- atribua os créditos a **Gabriel Douglas (gabbdev)**;
+- indique quais mudanças foram feitas no fork.
+
+O crédito pode apontar para [gabbdev.vercel.app](https://gabbdev.vercel.app/).
 
 ## Autor
 
-Desenvolvido por [Gabriel Douglas — gabbdev](https://gabbdev.vercel.app/).
+Criado por [Gabriel Douglas — gabbdev](https://gabbdev.vercel.app/).
 
-## Licença
+Leia a licença completa em [LICENSE](LICENSE).
 
-Distribuído sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais informações.
-
-> WhatsApp é uma marca de seus respectivos proprietários. Este projeto não possui vínculo oficial com a plataforma.
+> WhatsApp é uma marca de seus respectivos proprietários. O AutoNote não possui vínculo oficial com a plataforma.

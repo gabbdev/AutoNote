@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#d9f0d7" />
+    <title>AutoNote</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="storage-notice" id="storageNotice" role="status" aria-live="polite" hidden>
+      <span id="storageNoticeText"></span>
+      <button id="retrySave" type="button" hidden>Tentar salvar novamente</button>
+    </div>
+    <main class="app-shell">
+      <section class="cover-view view is-visible" id="coverView" aria-labelledby="coverTitle">
+        <div class="cover-cloud cloud-one"></div>
+        <div class="cover-cloud cloud-two"></div>
+        <div class="cover-card">
+          <div class="leaf-badge" aria-hidden="true">✦</div>
+          <p class="eyebrow">Escreva, Envie, Ganhe</p>
+          <h1 id="coverTitle">Auto<br /><span>Note</span></h1>
+          <p class="cover-copy">Automatize o envio de suas mensagens.</p>
+          <button class="primary-button cover-button" id="openNotebook" type="button">Abrir meu caderno <span>→</span></button>
+          <footer class="cover-footer"><span>☼</span> feito por <a href="https://gabbdev.vercel.app/">gabbdev</a></footer>
+        </div>
+        <div class="island-scene" aria-hidden="true">
+          <div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div>
+          <div class="tree tree-left"><i></i><b></b></div><div class="tree tree-right"><i></i><b></b></div>
+          <div class="flower flower-a">✿</div><div class="flower flower-b">✿</div><div class="fence"></div>
+        </div>
+      </section>
+
+      <section class="notebook-view view" id="notebookView" aria-labelledby="pageTitle">
+        <header class="topbar">
+          <div class="topbar-actions"><button class="menu-button" id="openPagesMenu" type="button" aria-label="Abrir menu de folhas">☰ <span>folhas</span></button><button class="back-button" id="backToCover" type="button" aria-label="Voltar para a capa">← <span>capa</span></button></div>
+          <div class="brand"><span class="brand-sprout">✦</span><strong>autonote</strong></div>
+          <div class="topbar-actions"><button class="theme-button" id="toggleTheme" type="button" aria-label="Ativar modo noturno">☾</button><div class="page-counter" id="pageCounter">folha 01</div></div>
+        </header>
+        <div class="menu-backdrop" id="menuBackdrop"></div>
+        <aside class="pages-menu" id="pagesMenu" aria-label="Menu de folhas" aria-hidden="true">
+          <div class="menu-heading"><div><p class="eyebrow">seu caderno</p><h3>Folhas da ilha</h3></div><button class="close-menu" id="closePagesMenu" type="button" aria-label="Fechar menu">×</button></div>
+          <p class="menu-description">Escolha uma folha para continuar sua história.</p>
+          <div class="pages-list" id="pagesList"></div>
+          <button class="undo-delete" id="undoDelete" type="button" title="Recupera as últimas exclusões enquanto esta página estiver aberta" disabled>↶ Desfazer exclusão</button>
+          <button class="menu-new-page" id="menuNewPage" type="button">＋ nova folha</button>
+          <div class="menu-decoration" aria-hidden="true">✿　☘　✿</div>
+        </aside>
+        <div class="notebook-layout">
+          <aside class="side-note">
+            <div class="stamp">NOTAS<br />DA ILHA</div>
+            
+            <div class="side-line"></div>
+            <span class="side-date">setembro · 2026</span>
+          </aside>
+          <section class="paper" aria-label="Folha do caderno">
+            <div class="paper-holes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="paper-header"><div><p class="eyebrow">folha <span id="pageNumber">01</span></p><h2 id="pageTitle">Um recadinho especial</h2></div><span class="paper-icon">☘</span></div>
+            <form id="noteForm">
+              <label for="telefone">Para quem é este recado?</label>
+              <div class="phone-wrap"><span>☏</span><input id="prefixo" name="prefixo" type="tel" inputmode="tel" placeholder="+55" aria-label="Prefixo internacional" aria-describedby="phoneHelp" autocomplete="tel-country-code" required /><input id="telefone" name="phone" type="tel" inputmode="tel" placeholder="(00) 00000-0000" aria-describedby="phoneHelp" autocomplete="tel-national" required /></div>
+              <p class="field-help" id="phoneHelp">Prefixo do país à esquerda; telefone com DDD à direita, sem repetir o prefixo.</p>
+              <label for="mensagem">O que você quer guardar por aqui?</label>
+              <textarea id="mensagem" name="noteText" placeholder="Escreva aqui...&#10;&#10;" required></textarea>
+              <div class="form-bottom"><span class="helper" id="saveStatus" role="status">✎ Notas salvas neste navegador</span><button class="send-button" type="submit">Enviar recado <span>➜</span></button></div>
+            </form>
+            <div class="paper-corner" aria-hidden="true"></div>
+          </section>
+        </div>
+        <footer class="notebook-footer">
+          <nav class="page-navigation" aria-label="Navegação entre folhas">
+          <button class="nav-button" id="previousPage" type="button">← anterior</button>
+          <div class="page-dots" id="pageDots" aria-label="Folhas do caderno"></div>
+          <button class="nav-button" id="nextPage" type="button">próxima →</button>
+          </nav>
+          <button class="new-page" id="newPage" type="button"><span>＋</span> criar outra folha</button>
+          <span class="footer-credit">feito por <a href="https://gabbdev.vercel.app/" target="_blank" rel="noopener noreferrer">gabbdev</a></span>
+          <details class="local-info">
+            <summary>Onde ficam minhas notas?</summary>
+            <p>Suas notas ficam apenas neste navegador, neste endereço do site. Não há conta nem sincronização entre dispositivos. Quem usar este mesmo perfil do navegador poderá acessá-las. Limpar os dados do site pode apagar as notas; mudar de endereço não as transfere automaticamente.</p>
+          </details>
+        </footer>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
